@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.B KAHOOT BEREZIA 🔥</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rojo: #e21b3c;
+            --azul: #1368ce;
+            --amarillo: #d89e00;
+            --verde: #26890c;
+            --morado: #864cbf;
+            --negro: #1a1a2e;
+            --blanco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--blanco);
+        }
+
+        .pantalla {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .pantalla.aktibo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* INICIO */
+        #inicio {
+            text-align: center;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(226, 27, 60, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(19, 104, 206, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(134, 76, 191, 0.2) 0%, transparent 70%),
+                linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .titulo-principal {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(3rem, 10vw, 7rem);
+            color: var(--blanco);
+            text-shadow: 
+                4px 4px 0 var(--rojo),
+                8px 8px 0 var(--azul),
+                12px 12px 20px rgba(0,0,0,0.5);
+            letter-spacing: 5px;
+            animation: bounce 2s infinite;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+            font-size: 1.5rem;
+            color: var(--amarillo);
+            margin-bottom: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .izena-container {
+            margin-bottom: 30px;
+        }
+
+        .izena-container label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--blanco);
+        }
+
+        .izena-input {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.3rem;
+            padding: 15px 25px;
+            border: 3px solid var(--morado);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-align: center;
+            width: 300px;
+            max-width: 90vw;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .izena-input:focus {
+            border-color: var(--amarillo);
+            box-shadow: 0 0 20px rgba(216, 158, 0, 0.4);
+        }
+
+        .izena-input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .btn-inicio {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            padding: 20px 60px;
+            background: linear-gradient(145deg, var(--verde), #1e6b0a);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #1a5a08, 0 15px 30px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+            letter-spacing: 3px;
+        }
+
+        .btn-inicio:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 13px 0 #1a5a08, 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .btn-inicio:active {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 #1a5a08, 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-inicio:disabled {
+            background: #555;
+            box-shadow: 0 8px 0 #333, 0 15px 30px rgba(0,0,0,0.3);
+            cursor: not-allowed;
+        }
+
+        .error-msg {
+            color: var(--rojo);
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* GALDERA PANTAILA */
+        #jokoa {
+            padding: 15px;
+        }
+
+        .goiburua {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .galdera-zenbakia {
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            color: var(--amarillo);
+        }
+
+        .denbora-barra {
+            flex: 1;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            margin: 0 20px;
+            overflow: hidden;
+        }
+
+        .denbora-barruko {
+            height: 100%;
+            background: linear-gradient(90deg, var(--verde), var(--amarillo), var(--rojo));
+            border-radius: 10px;
+            transition: width 0.1s linear;
+            width: 100%;
+        }
+
+        .puntuak {
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            color: var(--blanco);
+        }
+
+        .kategoria {
+            background: var(--morado);
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .galdera-testua {
+            font-size: clamp(1.3rem, 4vw, 2.2rem);
+            font-weight: 900;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.5s ease;
+            max-width: 900px;
+            line-height: 1.4;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .erantzunak {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .erantzun-btn {
+            padding: 25px 20px;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .erantzun-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .erantzun-btn:hover::before {
+            left: 100%;
+        }
+
+        .erantzun-btn:nth-child(1) {
+            background: linear-gradient(145deg, var(--rojo), #b8162f);
+            box-shadow: 0 6px 0 #8f1125, 0 10px 20px rgba(0,0,0,0.3);
+            animation: popIn 0.5s ease 0.1s both;
+        }
+
+        .erantzun-btn:nth-child(2) {
+            background: linear-gradient(145deg, var(--azul), #0f52a3);
+            box-shadow: 0 6px 0 #0c417f, 0 10px 20px rgba(0,0,0,0.3);
+            animation: popIn 0.5s ease 0.2s both;
+        }
+
+        .erantzun-btn:nth-child(3) {
+            background: linear-gradient(145deg, var(--amarillo), #b38200);
+            box-shadow: 0 6px 0 #8a6400, 0 10px 20px rgba(0,0,0,0.3);
+            animation: popIn 0.5s ease 0.3s both;
+        }
+
+        .erantzun-btn:nth-child(4) {
+            background: linear-gradient(145deg, var(--verde), #1e6b0a);
+            box-shadow: 0 6px 0 #175208, 0 10px 20px rgba(0,0,0,0.3);
+            animation: popIn 0.5s ease 0.4s both;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .erantzun-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .erantzun-btn:active {
+            transform: translateY(3px);
+        }
+
+        .erantzun-btn.zuzena {
+            animation: zuzen 0.5s ease;
+            background: var(--verde) !important;
+            box-shadow: 0 0 30px var(--verde), 0 6px 0 #175208 !important;
+        }
+
+        .erantzun-btn.okerra {
+            animation: oker 0.5s ease;
+            opacity: 0.5;
+        }
+
+        @keyframes zuzen {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes oker {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .erantzun-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        /* EMAITZA PANTAILA */
+        #emaitza {
+            text-align: center;
+            background: 
+                radial-gradient(circle at 50% 30%, rgba(216, 158, 0, 0.4) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .emaitza-titulo {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        .emaitza-izena {
+            font-size: 2rem;
+            color: var(--amarillo);
+            margin-bottom: 10px;
+        }
+
+        .emaitza-puntuak {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--amarillo);
+            text-shadow: 3px 3px 0 var(--rojo);
+            margin-bottom: 10px;
+        }
+
+        .emaitza-detailak {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        /* KODE EGIAZTATZAILEA */
+        .kode-container {
+            background: rgba(0,0,0,0.4);
+            border: 3px dashed var(--amarillo);
+            border-radius: 20px;
+            padding: 25px 40px;
+            margin: 20px 0;
+        }
+
+        .kode-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+        }
+
+        .kode-balioa {
+            font-family: 'Courier New', monospace;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--verde);
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px var(--verde);
+        }
+
+        .kode-azalpena {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 15px;
+            max-width: 400px;
+        }
+
+        .mensaje-final {
+            font-size: 1.3rem;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            max-width: 600px;
+        }
+
+        .btn-berriz {
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            padding: 15px 40px;
+            background: linear-gradient(145deg, var(--morado), #6a3a9a);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #4a2878, 0 12px 25px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+            letter-spacing: 2px;
+        }
+
+        .btn-berriz:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Feedback overlay */
+        .feedback-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feedback-overlay.aktibo {
+            display: flex;
+        }
+
+        .feedback-box {
+            text-align: center;
+            padding: 40px 60px;
+            border-radius: 25px;
+            animation: popIn 0.4s ease;
+        }
+
+        .feedback-box.zuzen {
+            background: linear-gradient(145deg, var(--verde), #1a7a08);
+            box-shadow: 0 0 60px rgba(38, 137, 12, 0.6);
+        }
+
+        .feedback-box.oker {
+            background: linear-gradient(145deg, var(--rojo), #b81830);
+            box-shadow: 0 0 60px rgba(226, 27, 60, 0.6);
+        }
+
+        .feedback-emoji {
+            font-size: 5rem;
+            margin-bottom: 15px;
+        }
+
+        .feedback-testua {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+        }
+
+        .feedback-puntuak {
+            font-size: 1.5rem;
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .feedback-zuzena {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            top: -20px;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                top: 100vh;
+                transform: rotate(720deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .erantzunak {
+                grid-template-columns: 1fr;
+            }
+            
+            .goiburua {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .denbora-barra {
+                order: 3;
+                width: 100%;
+                margin: 10px 0 0 0;
+            }
+
+            .kode-balioa {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Decorative elements */
+        .deco-circle {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .deco-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--rojo);
+            top: -100px;
+            right: -100px;
+        }
+
+        .deco-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--azul);
+            bottom: -50px;
+            left: -50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="deco-circle deco-1"></div>
+    <div class="deco-circle deco-2"></div>
+
+    <!-- HASIERA PANTAILA -->
+    <div id="inicio" class="pantalla aktibo">
+        <h1 class="titulo-principal">4.B KAHOOT!</h1>
+        <p class="subtitulo">🔥 Ea zenbat dakizuen benetan! 🔥</p>
+        
+        <div class="izena-container">
+            <label for="izena">Sartu zure izena:</label>
+            <input type="text" id="izena" class="izena-input" placeholder="Zure izena hemen..." maxlength="20" autocomplete="off">
+            <p class="error-msg" id="error-msg">Izena sartu mesedez!</p>
+        </div>
+        
+        <button class="btn-inicio" onclick="jokoaHasi()">▶ HASI JOKOA!</button>
+    </div>
+
+    <!-- JOKOA PANTAILA -->
+    <div id="jokoa" class="pantalla">
+        <div class="goiburua">
+            <span class="galdera-zenbakia" id="galdera-zenb">1/15</span>
+            <div class="denbora-barra">
+                <div class="denbora-barruko" id="denbora-barra"></div>
+            </div>
+            <span class="puntuak" id="puntuak">0 puntu</span>
+        </div>
+        
+        <div class="kategoria" id="kategoria">KATEGORIA</div>
+        
+        <div class="galdera-testua" id="galdera-testua">
+            Galdera hemen agertuko da
+        </div>
+        
+        <div class="erantzunak" id="erantzunak">
+            <button class="erantzun-btn" onclick="erantzunEgiaztatu(0)">A</button>
+            <button class="erantzun-btn" onclick="erantzunEgiaztatu(1)">B</button>
+            <button class="erantzun-btn" onclick="erantzunEgiaztatu(2)">C</button>
+            <button class="erantzun-btn" onclick="erantzunEgiaztatu(3)">D</button>
+        </div>
+    </div>
+
+    <!-- FEEDBACK OVERLAY -->
+    <div class="feedback-overlay" id="feedback">
+        <div class="feedback-box" id="feedback-box">
+            <div class="feedback-emoji" id="feedback-emoji">✅</div>
+            <div class="feedback-testua" id="feedback-testua">ONDO!</div>
+            <div class="feedback-puntuak" id="feedback-puntuak">+100 puntu</div>
+            <div class="feedback-zuzena" id="feedback-zuzena"></div>
+        </div>
+    </div>
+
+    <!-- EMAITZA PANTAILA -->
+    <div id="emaitza" class="pantalla">
+        <h1 class="emaitza-titulo">🏆 AMAITU DA! 🏆</h1>
+        <div class="emaitza-izena" id="emaitza-izena">Ikaslea</div>
+        <div class="emaitza-puntuak" id="azken-puntuak">0</div>
+        <div class="emaitza-detailak" id="emaitza-detailak">0/15 zuzen</div>
+        
+        <div class="kode-container">
+            <div class="kode-label">📋 ZURE KODEA (erakutsi irakasleari):</div>
+            <div class="kode-balioa" id="kode-balioa">XXXX-0000</div>
+            <div class="kode-azalpena">Kode hau unikoa da eta ezin da faltsutu. Irakasleari erakutsi puntuazioa erregistratzeko.</div>
+        </div>
+        
+        <div class="mensaje-final" id="mensaje-final">
+            Oso ondo!
+        </div>
+        
+        <button class="btn-berriz" onclick="berrizHasi()">🔄 BERRIZ JOLASTU</button>
+    </div>
+
+    <script>
+        // GALDERAK - 4.B PERTSONALIZATUAK + LEHEN MUNDU GERRA
+        const galderak = [
+            // IRAKASLEARI BURUZ
+            {
+                kategoria: "🧑‍🏫 IRAKASLEARI BURUZ",
+                galdera: "Zein auzotakoa da irakaslea?",
+                erantzunak: ["Bilbo Zaharra", "San Frantzisko", "Santutxu", "Solokoetxe"],
+                zuzena: 1
+            },
+            {
+                kategoria: "🧑‍🏫 IRAKASLEARI BURUZ",
+                galdera: "Zer ikasketatan ari da irakaslea?",
+                erantzunak: ["Psikologia Klinikoa", "Neuropsikologia eta Hezkuntza", "Hezkuntza Soziala", "Psikopedagogia"],
+                zuzena: 1
+            },
+            {
+                kategoria: "🧑‍🏫 IRAKASLEARI BURUZ",
+                galdera: "Zein musika motarekin erlazionatzen da irakaslea?",
+                erantzunak: ["Rock alternatiboa", "Ska-punk", "Reggae", "Indie folk"],
+                zuzena: 2
+            },
+            {
+                kategoria: "🧑‍🏫 IRAKASLEARI BURUZ",
+                galdera: "Ikasleek 'txapas' deitzen diote irakasleari. Zer esan nahi du horrek?",
+                erantzunak: ["Asko hitz egiten duela", "Oso zorrotza dela", "Beti berandu iristen dela", "Etxerako lan asko jartzen duela"],
+                zuzena: 0
+            },
+            {
+                kategoria: "🧑‍🏫 IRAKASLEARI BURUZ",
+                galdera: "Zein EZ da irakaslearen ezaugarria?",
+                erantzunak: ["Burusoila da", "Musikaria da", "Bilbokoa da", "Bizarduna da"],
+                zuzena: 3
+            },
+
+            // NESKAK vs MUTILAK
+            {
+                kategoria: "👫 4.B DINAMIKAK",
+                galdera: "Zein ekintza da OHIKOENA neska gehienen artean klasean?",
+                erantzunak: ["Eztabaidak sortzea", "Isil egotea", "Galderak egitea", "Ozen hitz egitea"],
+                zuzena: 1
+            },
+            {
+                kategoria: "👫 4.B DINAMIKAK",
+                galdera: "Zenbat neska egoten dira 'aurrez aurre' mutilekin normalean?",
+                erantzunak: ["Gehienak", "Bi gutxi gorabehera", "Bat ere ez", "Denak beti"],
+                zuzena: 1
+            },
+            {
+                kategoria: "👫 4.B DINAMIKAK",
+                galdera: "Zer gai interesatzen zaie gehien mutiletako askori?",
+                erantzunak: ["Literatura klasikoa", "Kirola", "Arte garaikidea", "Filosofia"],
+                zuzena: 1
+            },
+            {
+                kategoria: "👫 4.B DINAMIKAK",
+                galdera: "'Bro' hitza zein hizkuntzatatik dator?",
+                erantzunak: ["Gaztelaniatik (hermano)", "Ingelesetik (brother)", "Italieratik (fratello)", "Alemaneratik (bruder)"],
+                zuzena: 1
+            },
+            {
+                kategoria: "👫 4.B DINAMIKAK",
+                galdera: "Zer egin ohi dute mutilek 'macho alfa' jarrera erakusteko?",
+                erantzunak: ["Gehiago irakurri", "Isilago egon", "Kirola eta lehiakortasuna nabarmendu", "Klasean gehiago parte hartu"],
+                zuzena: 2
+            },
+
+            // LEHEN MUNDU GERRA
+            {
+                kategoria: "⚔️ LEHEN MUNDU GERRA",
+                galdera: "Zein urtetan hasi zen Lehen Mundu Gerra?",
+                erantzunak: ["1912", "1914", "1916", "1918"],
+                zuzena: 1
+            },
+            {
+                kategoria: "⚔️ LEHEN MUNDU GERRA",
+                galdera: "Zein gertaera izan zen gerraren aitzakia zuzena?",
+                erantzunak: ["Lusitania itsasontziaren hunditzea", "Frantzia eta Alemaniaren arteko gatazka", "Frantziako Ferdirando Artzidukaren hilketa", "Austriako Frantziako Ferdirando Artzidukaren hilketa"],
+                zuzena: 3
+            },
+            {
+                kategoria: "⚔️ LEHEN MUNDU GERRA",
+                galdera: "Zein herrialde EZ zen Hirukoitz Aliantza edo Potentzia Zentralen parte?",
+                erantzunak: ["Alemania", "Austria-Hungaria", "Frantzia", "Ottoman Inperioa"],
+                zuzena: 2
+            },
+            {
+                kategoria: "⚔️ LEHEN MUNDU GERRA",
+                galdera: "Zein gerra mota izan zen nagusi Mendebaldeko Frontean?",
+                erantzunak: ["Gerra azkarra (Blitzkrieg)", "Lubaki-gerra", "Gerrilla-gerra", "Itsas gerra"],
+                zuzena: 1
+            },
+            {
+                kategoria: "⚔️ LEHEN MUNDU GERRA",
+                galdera: "Zein urtetan sartu zen Ameriketako Estatu Batuak gerran?",
+                erantzunak: ["1914", "1915", "1917", "1918"],
+                zuzena: 2
+            },
+            {
+                kategoria: "⚔️ LEHEN MUNDU GERRA",
+                galdera: "Nola deitzen zaio 1918ko azaroaren 11ko egunari?",
+                erantzunak: ["Garaipen Eguna", "Armistizio Eguna", "Bake Eguna", "Amaiera Eguna"],
+                zuzena: 1
+            },
+            {
+                kategoria: "⚔️ LEHEN MUNDU GERRA",
+                galdera: "Zein itun sinatu zen gerra amaitzean Alemaniarekin?",
+                erantzunak: ["Pariseko Ituna", "Versallesko Ituna", "Vienako Ituna", "Londresko Ituna"],
+                zuzena: 1
+            },
+
+            // TRIVIA OROKORRA
+            {
+                kategoria: "🎯 TRIVIA PIKANTEA",
+                galdera: "Zein da Urdaibai?",
+                erantzunak: ["Herri bat Bizkaian", "Biosfera Erreserba bat", "Mendi bat", "Ibai bat soilik"],
+                zuzena: 1
+            },
+            {
+                kategoria: "🎯 TRIVIA PIKANTEA",
+                galdera: "DBH 4. mailan, zenbat urte dituzte ikasleek normalean?",
+                erantzunak: ["13-14 urte", "14-15 urte", "15-16 urte", "16-17 urte"],
+                zuzena: 2
+            },
+            {
+                kategoria: "🎯 TRIVIA PIKANTEA",
+                galdera: "Kahoot honetan, nork irabaziko du ziurrenik?",
+                erantzunak: ["Neskek, listoagoak direlako", "Mutilek, azkarragoak direlako", "Gehien dakienak", "Zorte gehien duenak"],
+                zuzena: 2
+            }
+        ];
+
+        // JOKO ALDAGAIAK
+        let unekoa = 0;
+        let puntuak = 0;
+        let zuzenak = 0;
+        let denboraGeratzen = 15;
+        let denboraInterval = null;
+        let jokatzen = false;
+        let jokalariIzena = '';
+        let erantzunHistoriala = [];
+
+        // FUNTZIOAK
+        function jokoaHasi() {
+            const izenaInput = document.getElementById('izena');
+            const errorMsg = document.getElementById('error-msg');
+            
+            jokalariIzena = izenaInput.value.trim();
+            
+            if (!jokalariIzena) {
+                errorMsg.style.display = 'block';
+                izenaInput.style.borderColor = 'var(--rojo)';
+                return;
+            }
+            
+            errorMsg.style.display = 'none';
+            izenaInput.style.borderColor = 'var(--morado)';
+            
+            unekoa = 0;
+            puntuak = 0;
+            zuzenak = 0;
+            erantzunHistoriala = [];
+            
+            // Galderak nahastu
+            galderak.sort(() => Math.random() - 0.5);
+            
+            pantailaAldatu('jokoa');
+            galderaErakutsi();
+        }
+
+        function pantailaAldatu(pantaila) {
+            document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('aktibo'));
+            document.getElementById(pantaila).classList.add('aktibo');
+        }
+
+        function galderaErakutsi() {
+            if (unekoa >= galderak.length) {
+                amaitu();
+                return;
+            }
+
+            jokatzen = true;
+            const g = galderak[unekoa];
+            
+            document.getElementById('galdera-zenb').textContent = `${unekoa + 1}/${galderak.length}`;
+            document.getElementById('puntuak').textContent = `${puntuak} puntu`;
+            document.getElementById('kategoria').textContent = g.kategoria;
+            document.getElementById('galdera-testua').textContent = g.galdera;
+            
+            // Erantzunak nahastu (zuzena gordez)
+            const erantzunIndizeak = [0, 1, 2, 3];
+            erantzunIndizeak.sort(() => Math.random() - 0.5);
+            
+            const botoiak = document.querySelectorAll('.erantzun-btn');
+            let zuzenBerria = 0;
+            
+            botoiak.forEach((btn, i) => {
+                const jatorrizkoIndizea = erantzunIndizeak[i];
+                btn.textContent = g.erantzunak[jatorrizkoIndizea];
+                btn.dataset.jatorrizkoa = jatorrizkoIndizea;
+                btn.disabled = false;
+                btn.className = 'erantzun-btn';
+                
+                if (jatorrizkoIndizea === g.zuzena) {
+                    zuzenBerria = i;
+                }
+            });
+            
+            galderak[unekoa].zuzenNahastuta = zuzenBerria;
+
+            // Denbora hasi (15 segundo)
+            denboraGeratzen = 15;
+            document.getElementById('denbora-barra').style.width = '100%';
+            
+            if (denboraInterval) clearInterval(denboraInterval);
+            denboraInterval = setInterval(() => {
+                denboraGeratzen -= 0.1;
+                const portzentaia = (denboraGeratzen / 15) * 100;
+                document.getElementById('denbora-barra').style.width = portzentaia + '%';
+                
+                if (denboraGeratzen <= 0) {
+                    clearInterval(denboraInterval);
+                    erantzunEgiaztatu(-1);
+                }
+            }, 100);
+        }
+
+        function erantzunEgiaztatu(aukeratua) {
+            if (!jokatzen) return;
+            jokatzen = false;
+            
+            clearInterval(denboraInterval);
+            
+            const g = galderak[unekoa];
+            const botoiak = document.querySelectorAll('.erantzun-btn');
+            const zuzenIndizea = g.zuzenNahastuta;
+            
+            botoiak.forEach(btn => btn.disabled = true);
+            
+            const zuzena = aukeratua === zuzenIndizea;
+            let puntuBerria = 0;
+            
+            erantzunHistoriala.push(zuzena ? 1 : 0);
+            
+            if (zuzena) {
+                zuzenak++;
+                puntuBerria = Math.round(100 + (denboraGeratzen * 7));
+                puntuak += puntuBerria;
+                botoiak[aukeratua].classList.add('zuzena');
+                feedbackErakutsi(true, puntuBerria, '');
+                confettiSortu();
+            } else {
+                if (aukeratua >= 0) botoiak[aukeratua].classList.add('okerra');
+                botoiak[zuzenIndizea].classList.add('zuzena');
+                const erantzunZuzena = g.erantzunak[g.zuzena];
+                feedbackErakutsi(false, 0, erantzunZuzena);
+            }
+            
+            setTimeout(() => {
+                document.getElementById('feedback').classList.remove('aktibo');
+                unekoa++;
+                galderaErakutsi();
+            }, 2500);
+        }
+
+        function feedbackErakutsi(zuzena, puntuak, erantzunZuzena) {
+            const feedback = document.getElementById('feedback');
+            const box = document.getElementById('feedback-box');
+            const emoji = document.getElementById('feedback-emoji');
+            const testua = document.getElementById('feedback-testua');
+            const puntuDiv = document.getElementById('feedback-puntuak');
+            const zuzenDiv = document.getElementById('feedback-zuzena');
+            
+            if (zuzena) {
+                box.className = 'feedback-box zuzen';
+                emoji.textContent = ['🎉', '✅', '🔥', '💪', '⭐'][Math.floor(Math.random() * 5)];
+                testua.textContent = ['BIKAIN!', 'ONDO!', 'ZORAGARRI!', 'PERFEKTU!', 'TXAPELA!'][Math.floor(Math.random() * 5)];
+                puntuDiv.textContent = `+${puntuak} puntu`;
+                zuzenDiv.textContent = '';
+            } else {
+                box.className = 'feedback-box oker';
+                emoji.textContent = ['😅', '❌', '💔', '😬', '🫠'][Math.floor(Math.random() * 5)];
+                testua.textContent = ['OKERRA!', 'EZ ZEN!', 'HURRENGOAN!', 'AUPA!', 'JO!'][Math.floor(Math.random() * 5)];
+                puntuDiv.textContent = '0 puntu';
+                zuzenDiv.textContent = `Zuzena: ${erantzunZuzena}`;
+            }
+            
+            feedback.classList.add('aktibo');
+        }
+
+        function confettiSortu() {
+            const koloreak = ['#e21b3c', '#1368ce', '#d89e00', '#26890c', '#864cbf', '#ff69b4'];
+            
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = koloreak[Math.floor(Math.random() * koloreak.length)];
+                confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3500);
+            }
+        }
+
+        function kodeSortu() {
+            const historialaStr = erantzunHistoriala.join('');
+            const hash = Math.abs(hashCode(jokalariIzena + puntuak + historialaStr));
+            const letrak = jokalariIzena.substring(0, 2).toUpperCase().padEnd(2, 'X');
+            const zenbakiak = String(hash).substring(0, 4).padStart(4, '0');
+            return `${letrak}${zuzenak}-${zenbakiak}`;
+        }
+
+        function hashCode(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash;
+        }
+
+        function amaitu() {
+            pantailaAldatu('emaitza');
+            
+            document.getElementById('emaitza-izena').textContent = jokalariIzena;
+            document.getElementById('azken-puntuak').textContent = puntuak + ' puntu';
+            document.getElementById('emaitza-detailak').textContent = `${zuzenak}/${galderak.length} zuzen`;
+            document.getElementById('kode-balioa').textContent = kodeSortu();
+            
+            const portzentaia = (zuzenak / galderak.length) * 100;
+            let mezua = '';
+            
+            if (portzentaia === 100) {
+                mezua = '🏆 PERFEKTUA! Sineskaitza! Ziur kopiatu gabe?';
+            } else if (portzentaia >= 80) {
+                mezua = '🌟 Bikain ' + jokalariIzena + '! Oso ondo dakizu dena!';
+            } else if (portzentaia >= 60) {
+                mezua = '👍 Ondo ' + jokalariIzena + '! Baina hobetu dezakezu...';
+            } else if (portzentaia >= 40) {
+                mezua = '😬 ' + jokalariIzena + ', klasean gehiago entzun behar duzu!';
+            } else {
+                mezua = '😅 ' + jokalariIzena + '... Zer gertatzen da? Lo zeunden?';
+            }
+            
+            document.getElementById('mensaje-final').textContent = mezua;
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => confettiSortu(), i * 100);
+            }
+        }
+
+        function berrizHasi() {
+            document.getElementById('izena').value = '';
+            pantailaAldatu('inicio');
+        }
+
+        document.getElementById('izena').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                jokoaHasi();
+            }
+        });
+    </script>
+</body>
+</html>
